@@ -1,0 +1,6 @@
+[package]
+name = "dangling-pointer"
+version = "0.1.0"
+authors = ["MarcManiez <marc.maniez@gmail.com>"]
+
+[dependencies]
