@@ -3,4 +3,4 @@ fn main() {
 
     println!("{}", hello_world);
 
-} // hello_world is out of scope and immediately deallocated as a result. No need to run free()
+} // hello_world is out of scope and automatically deallocated as a result. No need to run free()
