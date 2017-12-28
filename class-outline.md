@@ -20,9 +20,9 @@ Traditional languages such as C require manual allocation and cleanup of memory 
 
 Garbage collection is known for be a very difficult problem to solve, so the control granted by manual memory allocation is powerful if we strive for efficiency. But it is also error prone and leads to two classes of problems that Rust claims to address:
 
-a. Memory leaks
+1. Memory leaks
 
-b. Security vulnerabilities (buffer overflow, dangling pointers, etc.) which allow savvy attackers to inject code in poorly written software.
+2. Security vulnerabilities (buffer overflow, dangling pointers, etc.) which allow savvy attackers to inject code in poorly written software.
 
 Rust helps dramatically reduce bugs in the first category, and if I’m not mistaken, it claims to entirely remove the possibility for bugs in the second category.
 
@@ -43,3 +43,78 @@ End of class. See you next week...!
 3. When the owner goes out of scope, the value will be dropped.
 
 [Basic ownership examples](rust-examples/basic-ownership/src/main.rs)
+
+[Memory leak example in C](c-examples/memory-leak/memory_leak.c)
+
+But as rule #2 reminds us, it’s not quite as simple as dropping any variable when it gets out of scope. If we did that, and that alone, we might end up double freeing.
+
+[Double free example in C](c-examples/double-free/double_free.c)
+
+[Double free counter example in Rust](rust-examples/double-free/src/main.rs)
+
+As the second example illustrates, Rust has a concept of moving ownership between variables. This allows us to fulfill requirement #2: that each heap-allocated object only have one owner. It also avoids double frees.
+
+## References and borrowing
+
+How does ownership affect function calls? What needs to happen when we want to pass a value into a function?
+
+[Interactive example](rust-examples/references/src/main.rs)
+
+## Mutability
+
+By default, variable declarations in Rust are immutable. Most variables in programming end up not being mutated so setting this as the default makes sense. It also makes mutable variables very explicit.
+
+[Here’s an example of mutability in action](rust-examples/mutability/src/main.rs)
+
+## Advanced borrowing examples
+
+Now that we know the fundamentals of ownership in Rust, let’s take some more side-by-side comparisons with C to see how differently the languages handle similar situations.
+
+[Mutable pointers in Rust](rust-examples/mutable-pointers/src/main.rs)
+
+[Mutable pointers in C](c-examples/mutable-pointers/mutable_pointers.c)
+
+# Lifetimes
+
+Lifetimes are involved whenever a reference is made and a value is borrowed. It’s the feature of Rust that ensure that you can’t access invalid parts of memory.
+
+Lifetimes help ensure that the value being borrowed has a lifetime that is >= to that of the reference.
+
+[Example of a dangling pointer in C](c-examples/dangling-pointer/dangling_pointer.c)
+
+[Example of a dangling pointer in Rust](rust-examples/dangling-pointer/src/main.rs)
+
+As we can see in the example, if a reference lives after the value it borrows has been dropped, it points to nothing, which is dangerous.
+
+Often times, lifetimes can be elided and inferred, simply because only one reference is present in a given scope.
+
+```Rust
+Fn func(reference: &String) -> reference: &String {
+    reference
+}
+
+fn main() {
+    string = String::from(“String”);
+    func(&string);
+}
+```
+
+But in more complex scenarios, the compiler asks us to specify lifetimes. We’ll see why it’s costly, or impossible for the compiler to derive this information itself. ([read from lifetime chatper of book](https://doc.rust-lang.org/stable/book/second-edition/ch10-03-lifetime-syntax.html#lifetime-annotations-in-function-signatures))
+
+## Static lifetime
+
+There is one special lifetime: ‘static. This means that the reference should be made to live for the entirety of the program’s life.
+
+## Lifetime subtyping
+
+We can declare a hierarchy between different lifetimes. For example:
+
+```Rust
+struct SubStruct<’s> (&’s str);
+
+struct Struct<'c, 's: 'c> {
+    sub_struct: &'c SubStruct<'s>,
+}
+```
+
+This means that ‘s has a lifetime that is >= the lifetime of ‘c.
