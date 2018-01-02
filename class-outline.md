@@ -170,10 +170,44 @@ fn find_user(identifier: Identifier) -> Option<User> {
 }
 ```
 
-`Option` is such a wide spread enum that it is part of Rust standard library.
+`Option` is such a widespread enum that it is part of Rust standard library.
 
 This pattern has a few advantages:
 
 * It lets `find_user` be concerned with only its primary duty: finding a user, and it lets the caller decide what to do with the result.
-* It removes the ambiguity of coercing everything to a `bool`, which many languages do inconsistently.
+* It removes the ambiguity of coercing everything to a boolean, which many languages do inconsistently.
 * It opens up some very powerful control flow tools.
+
+## Pattern Matching
+
+Pattern matching is the ability to branch the flow of our program depending on an enumerable. The standard way to do express branch off of multiple potential enum variants is to use the `match` keyword. Let's continue our example to illustrate:
+
+```Rust
+enum Identifier<'a> {
+    Email(&'a str),
+    Telephone(&'a str),
+    SSN(usize),
+    Username(&'a str),
+}
+
+fn find_user(identifier: Identifier) -> Option<User> {
+    match identifier {
+        Email(email) => search_user_table_by_email(email),
+        Telephone(phone) => search_user_table_by_telephone(phone),
+        _ => None, // we got lazy at the end and used a catch-all, because we can!
+    } // returns implicitly
+}
+
+fn search_user_table_by_email(email: &str) -> Option<User> { /* some code */ };
+```
+
+The call site of `find_user` might in turn look something like this:
+
+```Rust
+let email = Idenfier::Email("dev@ops.org");
+
+match find_user(email) {
+    Some(user) => /* Use valuable information */,
+    None => /* Handle the failure case */,
+}
+```
