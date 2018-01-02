@@ -118,3 +118,62 @@ struct Struct<'c, 's: 'c> {
 ```
 
 This means that `‘s` has a lifetime that is >= the lifetime of `‘c`.
+
+# Enumerables & Pattern Matching
+
+Pattern matching and enumerables are not unique to Rust, but they are used rarely enough that they are worth pointing out. When combined, these two features open a whole new world of control flow, making `if`s and `else`s somewhat of a rare occurrence.
+
+##Enumerables
+
+Enumerables are referred to as `enums` for short. You can think of them as a category which lists out different variants within that category. Here's an example:
+
+```Rust
+enum Identifier<'a> {
+    Email(&'a str),
+    Telephone(&'a str),
+    SSN(usize),
+    Username(&'a str),
+}
+
+let ssn = Identifier::SSN(0000000000);
+```
+
+You can optionally store some data inside an enum's variant. In this case, we stored our social security number. But why is this useful? To understand, lets look at another example and introduce another type of enum, `Option`.
+
+```Rust
+struct User {
+    identifier: Identifier,
+    valuable_information: String,
+}
+
+fn find_user(identifier: Identifier) -> User {
+    // some code to retrieve the user from the database
+    // using the identifier argument
+}
+```
+
+How do we handle the failure scenario? In most languages, we would be content by returning the user, or `null` if we didn't find anything, but in Rust, that's a problem for two reasons:
+
+* Rust is strongly typed. If `find_user`'s signature tells us we're returning a user, we must return a user in all cases. Yet we can't guarantee this.
+* Rust has no concept of `null`.
+
+This how Rust addresses this situation:
+
+```Rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+fn find_user(identifier: Identifier) -> Option<User> {
+    // some code to retrieve the user from the database
+}
+```
+
+`Option` is such a wide spread enum that it is part of Rust standard library.
+
+This pattern has a few advantages:
+
+* It lets `find_user` be concerned with only its primary duty: finding a user, and it lets the caller decide what to do with the result.
+* It removes the ambiguity of coercing everything to a `bool`, which many languages do inconsistently.
+* It opens up some very powerful control flow tools.
