@@ -123,7 +123,7 @@ This means that `'s` has a lifetime that is >= the lifetime of `'c`.
 
 Pattern matching and enumerables are not unique to Rust, but they are used rarely enough that they are worth pointing out. When combined, these two features open a whole new world of control flow, making `if`s and `else`s somewhat of a rare occurrence.
 
-##Enumerables
+## Enumerables
 
 Enumerables are referred to as `enums` for short. You can think of them as a category which lists out different variants within that category. Here's an example:
 
