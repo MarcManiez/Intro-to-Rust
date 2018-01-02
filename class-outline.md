@@ -211,7 +211,19 @@ The call site of `find_user` might look something like this:
 let email = Idenfier::Email("dev@ops.org");
 
 match find_user(email) {
-    Some(user) => /* Use valuable information */,
+    Some(user) => /* Do something with the user variable */,
     None => /* Handle the failure case */,
 }
+```
+
+If all we care about is handling one scenario, Rust gives us this syntax:
+
+```Rust
+let email = Idenfier::Email("dev@ops.org");
+
+if let Some(user) = find_user(email) {
+    // do something with the `user` variable
+}
+
+// don't handle failure case because yolo
 ```
