@@ -138,23 +138,27 @@ enum Identifier<'a> {
 let ssn = Identifier::SSN(0000000000);
 ```
 
-You can optionally store some data inside an enum's variant. In this case, we stored our social security number. But why is this useful? To understand, lets look at another example and introduce another type of enum, `Option`.
+You can optionally store some data inside an enum's variant. In this case, we stored our social security number. But why is this useful? To understand, lets look at another example and introduce another type of enum, `Option`. Image that you're trying to fetch user information from a database:
 
 ```Rust
 struct User {
-    identifier: Identifier,
-    valuable_information: String,
+    primary_identifier: Identifier, // note that we can use enums as types
+    email: Identifier::Email,
+    telephone: Identifier::Telephone,
+    ssn: Identifier::SSN,
+    username: Identifier::Username,
+    other_valuable_information: String,
 }
 
 fn find_user(identifier: Identifier) -> User {
-    // some code to retrieve the user from the database
+    // some code to retrieve the user from a database
     // using the identifier argument
 }
 ```
 
 How do we handle the failure scenario? In most languages, we would be content by returning the user, or `null` if we didn't find anything, but in Rust, that's a problem for two reasons:
 
-* Rust is strongly typed. If `find_user`'s signature tells us we're returning a user, we must return a user in all cases. Yet we can't guarantee this.
+* Rust is strongly typed. If `find_user`'s signature tells us we're returning a user, we must return a user in all cases. The problem here is that we can't guarantee our database will cooperate 100% of the time.
 * Rust has no concept of `null`.
 
 This how Rust addresses this situation:
@@ -180,7 +184,7 @@ This pattern has a few advantages:
 
 ## Pattern Matching
 
-Pattern matching is the ability to branch the flow of our program depending on an enumerable. The standard way to do express branch off of multiple potential enum variants is to use the `match` keyword. Let's continue our example to illustrate:
+Pattern matching is the ability to branch the flow of our program depending on an enumerable. The standard way to branch off of multiple potential enum variants is to use the `match` keyword. Let's continue our example to illustrate:
 
 ```Rust
 enum Identifier<'a> {
@@ -201,7 +205,7 @@ fn find_user(identifier: Identifier) -> Option<User> {
 fn search_user_table_by_email(email: &str) -> Option<User> { /* some code */ };
 ```
 
-The call site of `find_user` might in turn look something like this:
+The call site of `find_user` might look something like this:
 
 ```Rust
 let email = Idenfier::Email("dev@ops.org");
