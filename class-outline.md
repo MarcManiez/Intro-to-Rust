@@ -12,15 +12,15 @@ The stack is called a stack because it is a stack-type data structure. Calling a
 
 3. The heap is a less-strictly organized memory area that programs can draw from to store data if its size is unknown at compile time or if it needs to outlive its current stack frame. Objects on the heap often have associated objects called pointers which are a sort of bread crumb trail that points to the location of its corresponding object on the heap. A basic pointer will often have the address in memory (e.g 0x7ffeedb9b4de) along with a name, a capacity (how many bytes have been allocated) and a size (how many bytes have been used).
 
-Memory in a program is being interacted with constantly, so how a given language decides to interact with memory is character-defining.
+Memory in a program is being interacted with constantly, so how a given language decides to deal with memory is character-defining.
 
 Most recent languages, and all scripting languages that I can think of are garbage collected, which means heap allocated memory is routinely and automatically cleared up using various algorithms.
 
 Traditional languages such as C require manual allocation and cleanup of memory using functions such as malloc() and free(), which we’ll get acquainted with in just a bit.
 
-Garbage collection is known for be a very difficult problem to solve, so the control granted by manual memory allocation is powerful if we strive for efficiency. But it is also error prone and leads to two classes of problems that Rust claims to address:
+Garbage collection is a notoriously difficult problem to solve, so the control granted by manual memory allocation is powerful if we strive for efficiency. But it is also error prone and leads to two classes of problems that Rust claims to address:
 
-1. Memory leaks
+1. Memory leaks.
 
 2. Security vulnerabilities (buffer overflow, dangling pointers, etc.) which allow savvy attackers to inject code in poorly written software.
 
@@ -50,7 +50,7 @@ But as rule #2 reminds us, it’s not quite as simple as dropping any variable w
 
 [Double free example in C](c-examples/double-free/double_free.c)
 
-[Double free counter example in Rust](rust-examples/double-free/src/main.rs)
+[Double free counter-example in Rust](rust-examples/double-free/src/main.rs)
 
 As the second example illustrates, Rust has a concept of moving ownership between variables. This allows us to fulfill requirement #2: that each heap-allocated object only have one owner. It also avoids double frees.
 
@@ -76,9 +76,9 @@ Now that we know the fundamentals of ownership in Rust, let’s take some more s
 
 # Lifetimes
 
-Lifetimes are involved whenever a reference is made and a value is borrowed. It’s the feature of Rust that ensure that you can’t access invalid parts of memory.
+Lifetimes are involved whenever a reference is made and a value is borrowed. It’s the feature of Rust that ensures that you can’t access invalid parts of memory.
 
-Lifetimes help ensure that the value being borrowed has a lifetime that is >= to that of the reference.
+Lifetimes help ensure that the value being borrowed has a lifetime that is >= the lifetime of the reference.
 
 [Example of a dangling pointer in C](c-examples/dangling-pointer/dangling_pointer.c)
 
@@ -103,7 +103,7 @@ But in more complex scenarios, the compiler asks us to specify lifetimes. We’l
 
 ## Static lifetime
 
-There is one special lifetime: ‘static. This means that the reference should be made to live for the entirety of the program’s life.
+There is one special lifetime: `‘static`. This means that the reference should be made to live for the entirety of the program’s life.
 
 ## Lifetime subtyping
 
@@ -117,4 +117,4 @@ struct Struct<'c, 's: 'c> {
 }
 ```
 
-This means that ‘s has a lifetime that is >= the lifetime of ‘c.
+This means that `‘s` has a lifetime that is >= the lifetime of `‘c`.
