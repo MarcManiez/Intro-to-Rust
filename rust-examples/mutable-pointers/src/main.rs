@@ -1,3 +1,5 @@
+// The following example will not compile as is.
+
 fn main() {
     let mut the_room = String::from("Oh hi Mark!");
     the_room.push_str(" Bye Denny.");

@@ -11,5 +11,5 @@ int main(void) {
   double_free(); // surfaces an error, but only at runtime
 }
 
-// This illustration is simple, but this is an exceedingly easy mistake to make in slight more complex environments
+// This illustration is simple, but this is an exceedingly easy mistake to make in slightly more complex environments
 // Rust was created in large part to avoid this kind of mistake.
