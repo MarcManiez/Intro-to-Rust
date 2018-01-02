@@ -121,7 +121,7 @@ This means that `'s` has a lifetime that is >= the lifetime of `'c`.
 
 # Enumerables & Pattern Matching
 
-Pattern matching and enumerables are not unique to Rust, but they are used rarely enough that they are worth pointing out. When combined, these two features open a whole new world of control flow, making `if`s and `else`s somewhat of a rare occurrence.
+Pattern matching and enumerables are not unique to Rust, but they are rare enough in computer languages that they are worth pointing out. When combined, these two features open a whole new world of control flow, making `if`s and `else`s the exception rather than the norm.
 
 ## Enumerables
 
@@ -151,7 +151,7 @@ struct User {
 }
 
 fn find_user(identifier: Identifier) -> User {
-    // some code to retrieve the user from a database
+    // some code to retrieve a user from the database
     // using the identifier argument
 }
 ```
@@ -211,7 +211,7 @@ The call site of `find_user` might look something like this:
 let email = Idenfier::Email("dev@ops.org");
 
 match find_user(email) {
-    Some(user) => /* Do something with the user variable */,
+    Some(user) => /* Do something with the `user` variable */,
     None => /* Handle the failure case */,
 }
 ```
