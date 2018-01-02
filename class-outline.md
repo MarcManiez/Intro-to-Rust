@@ -94,7 +94,7 @@ Fn func(reference: &String) -> reference: &String {
 }
 
 fn main() {
-    string = String::from(“String”);
+    string = String::from("String");
     func(&string);
 }
 ```
@@ -103,21 +103,21 @@ But in more complex scenarios, the compiler asks us to specify lifetimes. We’l
 
 ## Static lifetime
 
-There is one special lifetime: `‘static`. This means that the reference should be made to live for the entirety of the program’s life.
+There is one special lifetime: `'static`. This means that the reference should be made to live for the entirety of the program’s life.
 
 ## Lifetime subtyping
 
 We can declare a hierarchy between different lifetimes. For example:
 
 ```Rust
-struct SubStruct<’s> (&’s str);
+struct SubStruct<'s> (&'s str);
 
 struct Struct<'c, 's: 'c> {
     sub_struct: &'c SubStruct<'s>,
 }
 ```
 
-This means that `‘s` has a lifetime that is >= the lifetime of `‘c`.
+This means that `'s` has a lifetime that is >= the lifetime of `'c`.
 
 # Enumerables & Pattern Matching
 
