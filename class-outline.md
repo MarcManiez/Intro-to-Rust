@@ -1,5 +1,7 @@
 # Introduction
 
+This session is meant to be interactive, with examples that you can tweak and run on your machine. If you don't have rust installed yet, you can do that [here](https://www.rustup.rs/).
+
 This talk is about Rust, but it’s also going to be about memory management in computer languages to some extent. So for that, we’re going to start with a brief overview of how programs interact with memory.
 
 There are three ways of managing objects in a program:
