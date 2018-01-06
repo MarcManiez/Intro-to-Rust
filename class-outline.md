@@ -99,7 +99,9 @@ fn main() {
 }
 ```
 
-But in more complex scenarios, the compiler asks us to specify lifetimes. We’ll see why it’s costly, or impossible for the compiler to derive this information itself. ([read from lifetime chatper of book](https://doc.rust-lang.org/stable/book/second-edition/ch10-03-lifetime-syntax.html#lifetime-annotations-in-function-signatures))
+But in more complex scenarios, the compiler asks us to specify lifetimes. We’ll see why it’s costly, or impossible for the compiler to derive this information itself. Let's consider a simple function that seeks to return the longest of two string.
+
+[Interactive lifetimes example](rust-examples/lifetimes/src/main.rs)
 
 ## Static lifetime
 
