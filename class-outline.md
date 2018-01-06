@@ -140,7 +140,7 @@ enum Identifier<'a> {
 let ssn = Identifier::SSN(0000000000);
 ```
 
-You can optionally store some data inside an enum's variant. In this case, we stored our social security number. But why is this useful? To understand, lets look at another example and introduce another type of enum, `Option`. Image that you're trying to fetch user information from a database:
+You can optionally store some data inside an enum's variant. In this case, we stored our social security number. But why is this useful? To understand, lets look at another example and introduce another type of enum, `Option`. Imagine that you're trying to fetch user information from a database:
 
 ```Rust
 struct User {
@@ -158,7 +158,7 @@ fn find_user(identifier: Identifier) -> User {
 }
 ```
 
-How do we handle the failure scenario? In most languages, we would be content by returning the user, or `null` if we didn't find anything, but in Rust, that's a problem for two reasons:
+How do we handle the failure scenario? In most languages, we would be content by returning the user, or `null` if we didn't find anything. In Rust, that's a problem for two reasons:
 
 * Rust is strongly typed. If `find_user`'s signature tells us we're returning a user, we must return a user in all cases. The problem here is that we can't guarantee our database will cooperate 100% of the time.
 * Rust has no concept of `null`.
@@ -205,6 +205,7 @@ fn find_user(identifier: Identifier) -> Option<User> {
 }
 
 fn search_user_table_by_email(email: &str) -> Option<User> { /* some code */ };
+fn search_user_table_by_telephone(email: &str) -> Option<User> { /* some code */ };
 ```
 
 The call site of `find_user` might look something like this:
