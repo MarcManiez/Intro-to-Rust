@@ -4,7 +4,7 @@ fn print_hello_world() {
 
 fn print_a_number(number: usize) { // as an argument to our function, number is stored on the stack as a copy.
     println!("Marc is {}, that's old!", number);
-} // number is automatically dropped as it falls out of scope, along with the rest of this stack frame.
+} // number falls out of scope and is cleared off the stack along with the rest of this stack frame.
 
 fn print_from_the_heap() {
     let expletive = String::from("shit!"); // expletive is allocated on the heap.
