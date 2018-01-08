@@ -85,7 +85,7 @@ Now that we know the fundamentals of ownership in Rust, let’s take some more s
 
 # Lifetimes
 
-Lifetimes are involved whenever a reference is made and a value is borrowed. It’s the feature of Rust that ensures that you can’t access invalid parts of memory.
+Lifetimes are involved whenever a value is borrowed. It’s the feature of Rust that ensures that you can’t access invalid parts of memory.
 
 Lifetimes help ensure that the value being borrowed has a lifetime that is >= the lifetime of the reference.
 
