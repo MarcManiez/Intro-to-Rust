@@ -2,9 +2,9 @@
 #include <string.h>
 
 int main(void) {
-  char destination[100] = "Yacine is coming back!"; // declare a buffer of 100 bytes
+  char destination[100] = "Yacine is back!"; // declare a buffer of 100 bytes
   char *source = " Praise be! Praise be.\n"; // declare a charater pointer (string)
-  char (*pointer_to_pointer)[100] = &destination; // Create a pointer to a mutable string (pointers are mutable by default)
+  char (*pointer_to_pointer)[100] = &destination; // Create a pointer to a mutable string (pointers are mutable by default in C)
   strcat(destination, source); // concatenate strings
   printf("Dereferencing pointer to string: %s\n", *pointer_to_pointer);
 }
