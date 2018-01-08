@@ -1,6 +1,6 @@
 # Introduction
 
-This session is meant to be interactive, with examples that you can tweak and run on your machine. If you don't have rust installed yet, you can do that [here](https://www.rustup.rs/).
+This session is meant to be interactive, with examples that you can tweak and run on your machine. If you don't have Rust installed yet, you can do that [here](https://www.rustup.rs/).
 
 This talk is about Rust, but it’s also going to be about memory management in computer languages to some extent. So for that, we’re going to start with a brief overview of how programs interact with memory.
 
@@ -8,11 +8,22 @@ There are three ways of managing objects in a program:
 
 1. Static values like string literals can be hardcoded in the executable.
 
-2. The stack is an area of memory reserved for data relating to function calls. Each function has what is called a stack frame which lists what goes into a function and what comes out.
+2. The stack is an area of memory reserved for data relating to function calls. Each function has what is called a stack frame which lists what goes into a function and what comes out of it.
 
-The stack is called a stack because it is a stack-type data structure. Calling a function puts a frame on the stack and each function that returns has its stack frame is popped off the top. What goes in and out of each stack frame must have a known size.
+The stack is called a stack because it is a stack-type data structure. Calling a function puts a frame on the stack and each function that returns has its stack frame popped off the top. What goes in and out of each stack frame must have a known size.
 
-3. The heap is a less-strictly organized memory area that programs can draw from to store data if its size is unknown at compile time or if it needs to outlive its current stack frame. Objects on the heap often have associated objects called pointers which are a sort of bread crumb trail that points to the location of its corresponding object on the heap. A basic pointer will often have the address in memory (e.g 0x7ffeedb9b4de) along with a name, a capacity (how many bytes have been allocated) and a size (how many bytes have been used).
+__*Because of how the stack is organized, it makes its memory extremely fast interact with.*__
+
+3. The heap is a less-strictly organized memory area that programs can draw from to store data if its size is unknown at compile time or if it needs to outlive its current stack frame. Objects on the heap often have associated objects called pointers which are a sort of bread crumb trail that points to the location of its corresponding object on the heap.
+
+A basic pointer will often have:
+
+* the address in memory (e.g `0x7ffeedb9b4de`)
+* a name
+* a capacity (how many bytes have been allocated) and
+* a size (how many bytes have been used).
+
+__*Following a pointer is much slower than getting an object from stack memory.*__
 
 Memory in a program is being interacted with constantly, so how a given language decides to deal with memory is character-defining.
 
@@ -35,10 +46,6 @@ Rust achieves this by using a system called ownership, which will be the main fo
 At this point I’m going to quote extensively from a [free online book](https://doc.rust-lang.org/stable/book/second-edition/) that I highly recommend (the first few chapters are particularly eloquent and well-illustrated, so it’s easy to get into!).
 
 The rules of ownership are simple at first glance:
-
-1. You don’t talk about ownership.
-
-End of class. See you next week...!
 
 1. Each value in Rust has a variable that’s called its _owner_.
 2. There can only be one owner at a time.
