@@ -7,7 +7,7 @@ fn print_a_number(number: usize) { // as an argument to our function, number is 
 } // number falls out of scope and is cleared off the stack along with the rest of this stack frame.
 
 fn print_from_the_heap() {
-    let expletive = String::from("shit!"); // expletive is allocated on the heap.
+    let expletive = String::from("shit!"); // "shit!" is allocated on the heap, with `expletive` as its owner
     println!("This is a steaming heap of {}", expletive);
 } // expletive is out of scope / dropped, and its spot on the heap made available.
 
