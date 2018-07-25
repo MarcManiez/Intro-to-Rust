@@ -12,7 +12,7 @@ There are three ways of managing objects in a program:
 
 The stack is called a stack because it is a stack-type data structure. Calling a function puts a frame on the stack and each function that returns has its stack frame popped off the top. What goes in and out of each stack frame must have a known size.
 
-__*Because of how the stack is organized, it makes its memory extremely fast interact with.*__
+__*Because of how the stack is organized, it makes its memory extremely fast to interact with.*__
 
 3. The heap is a less-strictly organized memory area that programs can draw from to store data if its size is unknown at compile time or if it needs to outlive its current stack frame. Objects on the heap often have associated objects called pointers which are a sort of bread crumb trail that points to the location of its corresponding object on the heap.
 
